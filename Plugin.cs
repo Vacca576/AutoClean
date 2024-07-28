@@ -1,34 +1,28 @@
 using System;
 using Exiled.API.Features;
 
-namespace GroundCleanupPlugin
+namespace WelcomeMessage
 {
-    public class GroundCleanupPlugin : Plugin<Config>
+    public class WelcomeMessagePlugin : Plugin<Config>
     {
-        private Timer _cleanupTimer;
+        public override string Name => "AutoClean";
+        public override string Author => "Vacca";
+        public override string Prefix => "AutoClean";
+        public override Version RequiredExiledVersion => new Version(8, 9, 11);
 
         public override void OnEnabled()
         {
+            
             base.OnEnabled();
-            _cleanupTimer = new Timer(Cleanup, null, TimeSpan.FromMinutes(6), Timeout.InfiniteTimeSpan);
         }
 
         public override void OnDisabled()
         {
+            
             base.OnDisabled();
-            _cleanupTimer?.Dispose();
         }
 
-        private void Cleanup(object state)
-        {
-            
-            foreach (var item in Item.List)
-            {
-                item.Remove();
-            }
-            foreach (var player in Player.List)
-            {
-                player.Character?.Remove();
+  
             }
             _cleanupTimer.Change(TimeSpan.FromMinutes(6), Timeout.InfiniteTimeSpan); 
         }
